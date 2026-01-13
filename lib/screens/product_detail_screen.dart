@@ -172,76 +172,8 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                       ), // TextStyle
                     ), // Text
 
-                    const SizedBox(height: 40),
-
-                    // Botão de Compra Neon (Salvo na Memória)
-                    Container(
-                      width: double.infinity,
-                      height: 60,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(15),
-                        gradient: LinearGradient(
-                          colors: [
-                            Colors.cyanAccent.withValues(alpha: 0.8),
-                            Colors.blueAccent.withValues(alpha: 0.8),
-                          ],
-                        ), // LinearGradient
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.cyanAccent.withValues(alpha: 0.3),
-                            blurRadius: 20,
-                            offset: const Offset(0, 10),
-                          ), // BoxShadow
-                        ],
-                      ), // BoxDecoration
-                      child: ElevatedButton(
-                        onPressed: () {
-                          cart.addItem(widget.product, _quantity);
-                          ScaffoldMessenger.of(context).removeCurrentSnackBar();  // Remove a SnackBar atual, se houver
-
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(
-                              content: Text(
-                                '$_quantity x ${widget.product.title} no carrinho',
-                                style: const TextStyle(
-                                  color: Color(0xFF060410),
-                                  fontWeight: .bold, // Shorthand
-                                ), // TextStyle
-                              ), // Text
-                              backgroundColor: Colors.cyanAccent,
-                              behavior:
-                                  SnackBarBehavior.floating, // Faz ela flutuar
-                              margin: const EdgeInsets.only(
-                                bottom:
-                                    120, // Eleva a SnackBar para ficar ACIMA do botão
-                                left: 20,
-                                right: 20,
-                              ), // EdgeInsets.only
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(10),
-                              ), // RoundedRectangleBorder
-                              duration: const Duration(seconds: 2),
-                            ), // SnackBar
-                          ); // showSnackBar
-                          // Ação de adicionar ao carrinho
-                        },
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.transparent,
-                          shadowColor: Colors.transparent,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(15),
-                          ), // RoundedRectangleBorder
-                        ), // ElevatedButton.styleFrom
-                        child: const Text(
-                          'ADICIONAR AO CARRINHO',
-                          style: TextStyle(
-                            color: Color(0xFF060410),
-                            fontWeight: .w900,
-                            letterSpacing: 1.2,
-                          ), // TextStyle
-                        ), // Text
-                      ), // ElevatedButton
-                    ), // Container
+                    // Espaçamento final para o conteúdo não ficar escondido atrás do botão fixo
+                    const SizedBox(height: 120),
                   ],
                 ), // Column
               ), // Padding
@@ -249,6 +181,73 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
           ), // Column
         ), // SingleChildScrollView
       ), // Container
+
+      // BOTÃO FIXO NO RODAPÉ
+      bottomNavigationBar: Container(
+        color: const Color(0xFF060410), // Mantém o fundo escuro para não quebrar o gradiente
+        padding: const EdgeInsets.fromLTRB(25, 10, 25, 30),
+        child: Container(
+          width: double.infinity,
+          height: 60,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(15),
+            gradient: LinearGradient(
+              colors: [
+                Colors.cyanAccent.withValues(alpha: 0.8),
+                Colors.blueAccent.withValues(alpha: 0.8),
+              ],
+            ), // LinearGradient
+            boxShadow: [
+              BoxShadow(
+                color: Colors.cyanAccent.withValues(alpha: 0.3),
+                blurRadius: 20,
+                offset: const Offset(0, 10),
+              ), // BoxShadow
+            ],
+          ), // BoxDecoration
+          child: ElevatedButton(
+            onPressed: () {
+  // Ajustado para passar o objeto product e a quantidade do estado (_quantity)
+  cart.addItem(widget.product, _quantity); 
+  
+  ScaffoldMessenger.of(context).removeCurrentSnackBar(); // Limpa snacks anteriores
+
+  ScaffoldMessenger.of(context).showSnackBar(
+    SnackBar(
+      content: Text(
+        '$_quantity x ${widget.product.title} no carrinho',
+        style: const TextStyle(
+          color: Color(0xFF060410),
+          fontWeight: .bold,
+        ), // TextStyle
+      ), // Text
+      backgroundColor: Colors.cyanAccent,
+      behavior: SnackBarBehavior.floating,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(10),
+      ), // RoundedRectangleBorder
+      duration: const Duration(seconds: 2),
+    ), // SnackBar
+  ); // showSnackBar
+},
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Colors.transparent,
+              shadowColor: Colors.transparent,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(15),
+              ), // RoundedRectangleBorder
+            ), // ElevatedButton.styleFrom
+            child: const Text(
+              'ADICIONAR AO CARRINHO',
+              style: TextStyle(
+                color: Color(0xFF060410),
+                fontWeight: .w900,
+                letterSpacing: 1.2,
+              ), // TextStyle
+            ), // Text
+          ), // ElevatedButton
+        ), // Container interno (Estilizado)
+      ), // Container externo (Posicionamento)
     ); // Scaffold
   }
 }
