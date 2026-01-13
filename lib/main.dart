@@ -1,31 +1,29 @@
 import 'package:flutter/material.dart';
+import 'screens/home_screen.dart';
 
 void main() {
-  runApp(const CatalogApp());
+  runApp(const MyApp());
 }
 
-class CatalogApp extends StatelessWidget {
-  const CatalogApp({super.key});
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      title: 'Catálogo Premium',
       debugShowCheckedModeBanner: false,
-      title: 'Catálogo Digital',
-      theme: ThemeData(primarySwatch: Colors.blue),
-      home: const HomePage(),
-    );
-  }
-}
-
-class HomePage extends StatelessWidget {
-  const HomePage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text('Meu Catálogo')),
-      body: const Center(child: Text('O catálogo começa aqui!')),
-    );
+      theme: ThemeData(
+        useMaterial3: true,
+        // ESTA É A CHAVE: Define a cor de fundo para TODAS as transições
+        scaffoldBackgroundColor: const Color(0xFF060410),
+        canvasColor: const Color(0xFF060410),
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: Colors.cyanAccent,
+          brightness: Brightness.dark, // Força o sistema a entender que o app é escuro
+        ), // ColorScheme.fromSeed
+      ), // ThemeData
+      home: const HomeScreen(),
+    ); // MaterialApp
   }
 }
