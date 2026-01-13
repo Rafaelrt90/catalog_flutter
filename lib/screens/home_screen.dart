@@ -3,12 +3,20 @@ import 'package:flutter/material.dart';
 import '../data/dummy_data.dart';
 import '../widgets/product_item.dart';
 import 'cart_screen.dart'; // Importe a tela que criamos
+import 'package:provider/provider.dart';
+import '../providers/cart.dart';
+
+
+// Import essencial
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
+  
+
   @override
   Widget build(BuildContext context) {
+    final cart = Provider.of<Cart>(context);
     return Scaffold(
       // O FloatingActionButton fica aqui, como você começou a fazer
       floatingActionButton: Stack(
@@ -46,8 +54,8 @@ class HomeScreen extends StatelessWidget {
           minWidth: 18,
           minHeight: 18,
         ), // BoxConstraints
-        child: const Text(
-          '2', // Aqui depois colocaremos: cart.itemCount.toString()
+        child: Text(
+          cart.itemCount.toString(), // Aqui depois colocaremos: cart.itemCount.toString()
           style: TextStyle(
             color: Colors.white,
             fontSize: 10,

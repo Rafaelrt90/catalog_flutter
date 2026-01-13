@@ -62,6 +62,11 @@ class Cart with ChangeNotifier {
     notifyListeners(); // Isso faz o Badge e o Carrinho atualizarem!
   }
 
+  void removeItem(String productId) {
+  _items.remove(productId);
+  notifyListeners(); // Notifica a UI para atualizar a lista e o total
+  }
+
   void clear() {
     _items = {};
     notifyListeners();

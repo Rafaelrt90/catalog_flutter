@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import '../models/product.dart';
+import '../providers/cart.dart';
 
 class ProductDetailScreen extends StatefulWidget {
   final Product product;
@@ -15,6 +17,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final cart = Provider.of<Cart>(context, listen: false);
     return Scaffold(
       backgroundColor: const Color(0xFF060410),
       extendBodyBehindAppBar: true,
@@ -193,6 +196,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                       ), // BoxDecoration
                       child: ElevatedButton(
                         onPressed: () {
+                          cart.addItem(widget.product, _quantity);
                           ScaffoldMessenger.of(context).removeCurrentSnackBar();  // Remove a SnackBar atual, se houver
 
                           ScaffoldMessenger.of(context).showSnackBar(
