@@ -15,15 +15,14 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         useMaterial3: true,
-        // ESTA É A CHAVE: Define a cor de fundo para TODAS as transições
         scaffoldBackgroundColor: const Color(0xFF060410),
         canvasColor: const Color(0xFF060410),
         colorScheme: ColorScheme.fromSeed(
           seedColor: Colors.cyanAccent,
-          brightness: Brightness.dark, // Força o sistema a entender que o app é escuro
+          brightness: .dark, // Shorthand
         ), // ColorScheme.fromSeed
       ), // ThemeData
-      home: const HomeScreen(),
+      home: const HomeScreen(), 
     ); // MaterialApp
   }
 }

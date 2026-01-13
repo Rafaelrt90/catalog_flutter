@@ -1,6 +1,8 @@
+
 import 'package:flutter/material.dart';
 import '../data/dummy_data.dart';
 import '../widgets/product_item.dart';
+import 'cart_screen.dart'; // Importe a tela que criamos
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -8,23 +10,71 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      // O FloatingActionButton fica aqui, como você começou a fazer
+      floatingActionButton: Stack(
+  alignment: .center, // Shorthand
+  children: [
+    // Botão Principal
+    FloatingActionButton(
+      onPressed: () {
+        Navigator.of(context).push(
+          MaterialPageRoute(builder: (ctx) => const CartScreen()),
+        ); // MaterialPageRoute
+      },
+      backgroundColor: Colors.cyanAccent,
+      child: const Icon(
+        Icons.shopping_cart,
+        color: Color(0xFF060410),
+      ), // Icon
+    ), // FloatingActionButton
+    
+    // O Badge (Círculo com o contador)
+    Positioned(
+      right: 0,
+      top: 0,
+      child: Container(
+        padding: const EdgeInsets.all(2),
+        decoration: BoxDecoration(
+          color: Colors.redAccent,
+          borderRadius: BorderRadius.circular(10),
+          border: Border.all(
+            color: const Color(0xFF060410),
+            width: 1.5,
+          ), // Border.all
+        ), // BoxDecoration
+        constraints: const BoxConstraints(
+          minWidth: 18,
+          minHeight: 18,
+        ), // BoxConstraints
+        child: const Text(
+          '2', // Aqui depois colocaremos: cart.itemCount.toString()
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 10,
+            fontWeight: .bold,
+          ), // TextStyle
+          textAlign: .center, // Shorthand
+        ), // Text
+      ), // Container
+    ), // Positioned
+  ], // children
+), // Stack
       body: Container(
         width: double.infinity,
         height: double.infinity,
         decoration: BoxDecoration(
-          // Gradiente linear entre roxo profundo e azul escuro
           gradient: LinearGradient(
             begin: .topLeft, // Shorthand
             end: .bottomRight, // Shorthand
             colors: [
-              const Color(0xFF1A0B2E), // Roxo profundo
-              const Color(0xFF060410), // Azul quase preto
+              const Color(0xFF1A0B2E),
+              const Color(0xFF060410),
             ],
           ), // LinearGradient
         ), // BoxDecoration
         child: Stack(
           children: [
-            // Mantivemos apenas algumas linhas sutis para manter o ar tecnológico
+            // Linhas decorativas tecnológicas
             Positioned(
               top: 150,
               left: -20,
@@ -65,7 +115,7 @@ class HomeScreen extends StatelessWidget {
                             fontWeight: .bold,
                           ), // TextStyle
                         ), // Text
-                      ],
+                      ], // children
                     ), // Column
                   ), // Padding
                   
@@ -75,13 +125,13 @@ class HomeScreen extends StatelessWidget {
                       itemCount: dummyProducts.length,
                       itemBuilder: (ctx, index) {
                         return ProductItem(dummyProducts[index]);
-                      },
+                      }, // itemBuilder
                     ), // ListView.builder
                   ), // Expanded
-                ],
+                ], // children
               ), // Column
             ), // SafeArea
-          ],
+          ], // children
         ), // Stack
       ), // Container
     ); // Scaffold

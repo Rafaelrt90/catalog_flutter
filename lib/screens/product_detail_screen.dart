@@ -30,10 +30,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
           gradient: LinearGradient(
             begin: .topLeft,
             end: .bottomRight,
-            colors: [
-              const Color(0xFF1A0B2E),
-              const Color(0xFF060410),
-            ],
+            colors: [const Color(0xFF1A0B2E), const Color(0xFF060410)],
           ), // LinearGradient
         ), // BoxDecoration
         child: SingleChildScrollView(
@@ -60,7 +57,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                   ), // Container
                 ), // Material
               ), // Hero
-              
+
               Padding(
                 padding: const EdgeInsets.all(25.0),
                 child: Column(
@@ -89,9 +86,9 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                         ), // Text
                       ],
                     ), // Row
-                    
+
                     const SizedBox(height: 25),
-                    
+
                     // Seletor de Quantidade Estilo Glass
                     Row(
                       mainAxisAlignment: .spaceBetween,
@@ -121,7 +118,10 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                                     setState(() => _quantity--);
                                   }
                                 },
-                                icon: const Icon(Icons.remove, color: Colors.cyanAccent),
+                                icon: const Icon(
+                                  Icons.remove,
+                                  color: Colors.cyanAccent,
+                                ),
                               ), // IconButton
                               Text(
                                 '$_quantity',
@@ -135,16 +135,19 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                                 onPressed: () {
                                   setState(() => _quantity++);
                                 },
-                                icon: const Icon(Icons.add, color: Colors.cyanAccent),
+                                icon: const Icon(
+                                  Icons.add,
+                                  color: Colors.cyanAccent,
+                                ),
                               ), // IconButton
                             ],
                           ), // Row
                         ), // Container
                       ],
                     ), // Row
-                    
+
                     const SizedBox(height: 25),
-                    
+
                     Text(
                       'DESCRIÇÃO',
                       style: TextStyle(
@@ -154,9 +157,9 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                         fontWeight: .bold,
                       ), // TextStyle
                     ), // Text
-                    
+
                     const SizedBox(height: 10),
-                    
+
                     Text(
                       widget.product.description,
                       style: TextStyle(
@@ -165,9 +168,9 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                         height: 1.5,
                       ), // TextStyle
                     ), // Text
-                    
+
                     const SizedBox(height: 40),
-                    
+
                     // Botão de Compra Neon (Salvo na Memória)
                     Container(
                       width: double.infinity,
@@ -190,6 +193,32 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                       ), // BoxDecoration
                       child: ElevatedButton(
                         onPressed: () {
+                          ScaffoldMessenger.of(context).removeCurrentSnackBar();  // Remove a SnackBar atual, se houver
+
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text(
+                                '$_quantity x ${widget.product.title} no carrinho',
+                                style: const TextStyle(
+                                  color: Color(0xFF060410),
+                                  fontWeight: .bold, // Shorthand
+                                ), // TextStyle
+                              ), // Text
+                              backgroundColor: Colors.cyanAccent,
+                              behavior:
+                                  SnackBarBehavior.floating, // Faz ela flutuar
+                              margin: const EdgeInsets.only(
+                                bottom:
+                                    120, // Eleva a SnackBar para ficar ACIMA do botão
+                                left: 20,
+                                right: 20,
+                              ), // EdgeInsets.only
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10),
+                              ), // RoundedRectangleBorder
+                              duration: const Duration(seconds: 2),
+                            ), // SnackBar
+                          ); // showSnackBar
                           // Ação de adicionar ao carrinho
                         },
                         style: ElevatedButton.styleFrom(
